@@ -31,7 +31,7 @@ def UCS(graph, nNode, start, end):
     explored = [] # array to save explored nodes in order
     visited = set() # a set to save explored node 
     path = [-1]*nNode # array to save pre node of a node on the path
-    dist = [float('inf')]*nNode
+    dist = [float('inf')]*nNode # array to save the current priority of a node in frontier
 
     dist[start] = 0
     pq.put(Node(0,start))
@@ -55,6 +55,7 @@ def UCS(graph, nNode, start, end):
         visited.add(node.id)
 
         for neighbor in graph[node.id]:
+            # the node must be not expanded and have a lower path-cost than the same node in frontier (if any)
             if neighbor not in visited and node.priority + 1 < dist[neighbor]:
                 dist[neighbor] = node.priority + 1
                 pq.put(Node(dist[neighbor], neighbor))
