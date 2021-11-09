@@ -1,11 +1,11 @@
 # ---------------- Iterative deepening search ---------------- #
 
-def ids(graph, start, end):
+def IDS(graph, start, end):
     explored = [] # save explored nodes in order
     path = [start] # save path in order
 
     # depth-limit search
-    def dls(start, end, limit):
+    def DLS(start, end, limit):
         '''
         Return types includes:
             + "failure": no solution
@@ -31,7 +31,7 @@ def ids(graph, start, end):
                 return path # return solution
 
             path.append(node)
-            result = dls(node, end, limit-1) 
+            result = DLS(node, end, limit-1) 
 
             if result == "cutoff": cutoff = True
             elif result != "failure": return path # return solution
@@ -39,7 +39,7 @@ def ids(graph, start, end):
             path.pop() # backtrack path
 
         visited[start] = False # backtrack
-        
+
         if cutoff: return "cutoff"
         else: return "failure"
 
@@ -47,7 +47,7 @@ def ids(graph, start, end):
     res = None
     while True:
         visited = [False]*len(graph)
-        res = dls(start, end, limit)
+        res = DLS(start, end, limit)
         if res == "failure":
             return explored, -1 # -1 means there is no path
         if res != "cutoff":
@@ -55,15 +55,6 @@ def ids(graph, start, end):
         limit += 1
 
 
-n = int(input())
-graph = [0]*(n*n)
-for i in range(n*n):
-    graph[i] = list(map(int, input().split()))
-exitNode = int(input())
-
-explored, path = ids(graph, 0, exitNode)
-print(explored)
-print(path)
 
 
 
