@@ -19,7 +19,7 @@ class Node:
         self.priority = priority
         self.id = id
     def __lt__(self, other):
-        # if 2 nodes haves same priority, choose the one that has smaller id
+        # if 2 nodes have the same priority, choose the one with smaller id
         if self.priority == other.priority:
             return self.id <= other.id
         else:
@@ -31,18 +31,16 @@ def UCS(graph, nNode, start, end):
     explored = [] # array to save explored nodes in order
     visited = set() # a set to save explored node 
     path = [-1]*nNode # array to save pre node of a node on the path
-    dist = [float('inf')]*nNode # array to save the current priority of a node in frontier
 
-    dist[start] = 0
     pq.put(Node(0,start))
 
     while not pq.empty():
         # pop the lowest-cost from frontier
         node = pq.get()
 
-        # if this node is visisted we continue
-        # this condition is needed because we dont replace the same node 
-        # with higher path-cost in the frontier when consider a new node
+        # if this node is visisted we continue (*)
+        # this condition acts like the step of removing the same node 
+        # with higher path-cost in the frontier (the lowest one has been visited before)
         if node.id in visited:
             continue
 
@@ -55,10 +53,11 @@ def UCS(graph, nNode, start, end):
         visited.add(node.id)
 
         for neighbor in graph[node.id]:
-            # the node must be not expanded and have a lower path-cost than the same node in frontier (if any)
-            if neighbor not in visited and node.priority + 1 < dist[neighbor]:
-                dist[neighbor] = node.priority + 1
-                pq.put(Node(dist[neighbor], neighbor))
+            # considered node must be not expanded 
+            # even if it has higher path cost than one in frontier we still put it in frontier 
+            # cuz the priority queue and condition (*) above will guarantee not expanding it 
+            if neighbor not in visited:
+                pq.put(Node(node.priority + 1, neighbor))
                 path[neighbor] = node.id
 
     return explored, -1 # -1 means there is no path
