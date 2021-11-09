@@ -1,31 +1,7 @@
-'''
-Input format:
-- N - size of maze
-- Node 0's adjacency list
-- Node 1's ..............
-...
-- Node (N*N-1)'s adjacency list
-- E - exit node
-
-Output format:
-- The time to escape the maze
-- The list of explored nodes
-- The list of nodes on the path
-'''
+# ------------------ Uniform-cost search  ------------------ #
 import queue
+from node import Node
 
-class Node:
-    def __init__(self, priority, id):
-        self.priority = priority
-        self.id = id
-    def __lt__(self, other):
-        # if 2 nodes have the same priority, choose the one with smaller id
-        if self.priority == other.priority:
-            return self.id <= other.id
-        else:
-            return self.priority < other.priority
-
-# ------------------ Uniform-cost search  ------------------
 def UCS(graph, nNode, start, end):
     pq = queue.PriorityQueue() # frontier which is a priority queue
     explored = [] # array to save explored nodes in order
@@ -62,27 +38,7 @@ def UCS(graph, nNode, start, end):
 
     return explored, -1 # -1 means there is no path
 
-def printPath(path, start, end):
-    if start == end:
-        print(end, end = " ")
-    else:
-        if path[end] == -1:
-            print("No path")
-        else:
-            printPath(path, start, path[end])
-            print(end, end = " ")
 
-n = int(input())
-graph = [0]*(n*n)
-for i in range(n*n):
-    graph[i] = list(map(int, input().split()))
-exitNode = int(input())
-
-explored, path = UCS(graph, n*n, 0, exitNode)
-print(len(explored))
-print(*explored)
-if path == -1: print("No path") 
-else: printPath(path, 0, exitNode)
 
 
 
