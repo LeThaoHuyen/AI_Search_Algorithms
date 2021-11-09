@@ -1,4 +1,4 @@
-# ---------------- Greedy best-first search (Graph-search)---------------- #
+# ---------------- Greedy best-first search (Graph-search) ---------------- #
 import queue
 from node import Node
 
@@ -21,10 +21,12 @@ def GBFS(graph, start, end, h):
 
         for neighbor in graph[node.id]:
             if not visited[neighbor]:
+                path[neighbor] = node.id
+                if node.id == end:
+                    return explored, path
                 pq.put(Node(h[neighbor], neighbor))
                 visited[neighbor] = True
-                path[neighbor] = node.id
-
+                
     return explored, -1
 
 

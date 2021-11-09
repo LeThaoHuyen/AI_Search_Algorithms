@@ -2,11 +2,12 @@
 import queue
 from node import Node
 
-def UCS(graph, nNode, start, end):
-    pq = queue.PriorityQueue() # frontier which is a priority queue
+def UCS(graph, start, end):
+    nNodes = len(graph)
     explored = [] # array to save explored nodes in order
     visited = set() # a set to save explored node 
-    path = [-1]*nNode # array to save pre node of a node on the path
+    path = [-1]*nNodes # array to save pre node of a node on the path
+    pq = queue.PriorityQueue() # frontier which is a priority queue
 
     pq.put(Node(0,start))
 
