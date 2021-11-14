@@ -27,4 +27,5 @@ def A_star(graph, start, end, h):
                 f = g[neighbor] + h[neighbor]
                 pq.put(Node(f, neighbor))
                 path[neighbor] = node.id
-    return explored, -1
+
+    return explored, path # no solution: path[end] = -1

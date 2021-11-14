@@ -14,20 +14,17 @@ def GBFS(graph, start, end, h):
     
     while not pq.empty():
         node = pq.get()
-        if node.id == end:
-            return explored, path
-
         explored.append(node.id)
 
         for neighbor in graph[node.id]:
             if not visited[neighbor]:
                 path[neighbor] = node.id
-                if node.id == end:
+                if neighbor == end:
                     return explored, path
                 pq.put(Node(h[neighbor], neighbor))
                 visited[neighbor] = True
                 
-    return explored, -1
+    return explored, path
 
 
 

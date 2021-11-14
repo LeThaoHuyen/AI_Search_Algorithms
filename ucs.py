@@ -37,7 +37,7 @@ def UCS(graph, start, end):
                 pq.put(Node(node.priority + 1, neighbor))
                 path[neighbor] = node.id
 
-    return explored, -1 # -1 means there is no path
+    return explored, path 
 
 
 
