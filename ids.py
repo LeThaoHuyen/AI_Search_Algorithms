@@ -20,7 +20,7 @@ def IDS(graph, start, end):
         explored.append(start)
         visited[start] = True
 
-        graph[start].sort() #explored the smaller node first
+        graph[start].sort(key = lambda x: str(x)) #explored the node comes first lexicographically
         for node in graph[start]:
             # avoid loop by not visiting again the node on the current path
             if visited[node] == True: 

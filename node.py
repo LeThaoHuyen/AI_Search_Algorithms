@@ -4,8 +4,8 @@ class Node:
         self.priority = priority
         self.id = id
     def __lt__(self, other):
-        # if 2 nodes have the same priority, choose the one with smaller id
+        # if 2 nodes have the same priority, choose the one comes first lexicographically
         if self.priority == other.priority:
-            return self.id <= other.id
+            return str(self.id) <= str(other.id)
         else:
             return self.priority < other.priority
